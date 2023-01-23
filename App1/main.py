@@ -7,6 +7,7 @@ tasks = []
 
 now = time.strftime("%b %d, %Y  %H:%M:%S")
 
+print("Still figuring it out")
 print(f"It is {now}.\n")
 
 while True:
