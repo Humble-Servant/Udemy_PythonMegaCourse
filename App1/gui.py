@@ -1,6 +1,10 @@
 from modules import functions
 import PySimpleGUI as sg
+import time
 
+sg.theme("Topanga")
+
+clock = sg.Text("", key="clock")
 label = sg.Text("Type a task")
 input_box = sg.InputText(tooltip="Enter task", key='task')
 add_button = sg.Button("Add")
@@ -10,16 +14,18 @@ complete_button = sg.Button("Complete")
 exit_button = sg.Button("Exit")
 
 window = sg.Window("My Task List App",
-                   layout=[[label],
+                   layout=[[clock],
+                           [label],
                            [input_box, add_button],
                            [list_box, edit_button, complete_button],
                            [exit_button]],
-                   font=('Helvetica', 14))
+                   font=('Helvetica', 12))
 
 while True:
-    event, values = window.read()
-    print("Event:", event)
-    print("Values:", values)
+    event, values = window.read(timeout=200)
+    window['clock'].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
+    # print("Event:", event)
+    # print("Values:", values)
 
     match event:
         case "Add":
@@ -30,21 +36,27 @@ while True:
             window['tasks'].update(values=tasks)
             window['task'].update(value="")
         case "Edit":
-            task_to_edit = values['tasks'][0]
-            new_task = values['task'] + "\n"
-            tasks = functions.get_tasks()
-            index = tasks.index(task_to_edit)
-            tasks[index] = new_task
-            functions.write_tasks(tasks)
-            window['tasks'].update(values=tasks)
-            window['task'].update(value="")
+            try:
+                task_to_edit = values['tasks'][0]
+                new_task = values['task'] + "\n"
+                tasks = functions.get_tasks()
+                index = tasks.index(task_to_edit)
+                tasks[index] = new_task
+                functions.write_tasks(tasks)
+                window['tasks'].update(values=tasks)
+                window['task'].update(value="")
+            except IndexError:
+                sg.popup("Please select an item first", font=('Helvetica', 12))
         case "Complete":
-            task_to_complete = values['tasks'][0]
-            tasks = functions.get_tasks()
-            tasks.remove(task_to_complete)
-            functions.write_tasks(tasks)
-            window['tasks'].update(values=tasks)
-            window['task'].update(value="")
+            try:
+                task_to_complete = values['tasks'][0]
+                tasks = functions.get_tasks()
+                tasks.remove(task_to_complete)
+                functions.write_tasks(tasks)
+                window['tasks'].update(values=tasks)
+                window['task'].update(value="")
+            except IndexError:
+                sg.popup("Please select an item first", font=('Helvetica', 12))
         case "Exit":
             break
         case "tasks":
