@@ -3,3 +3,7 @@ Enter some things to do
 Wash the car
 Do the dishes
 Take a class
+New task
+Fix the computer
+And now for something completely different
+
