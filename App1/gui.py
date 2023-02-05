@@ -7,10 +7,10 @@ sg.theme("Topanga")
 clock = sg.Text("", key="clock")
 label = sg.Text("Type a task")
 input_box = sg.InputText(tooltip="Enter task", key='task')
-add_button = sg.Button("Add")
+add_button = sg.Button(key="Add", image_source="add.png", size=10, mouseover_colors="DarkBlue", tooltip="Add new task")
 list_box = sg.Listbox(values=functions.get_tasks(), key='tasks', enable_events=True, size=(45, 10))
 edit_button = sg.Button("Edit")
-complete_button = sg.Button("Complete")
+complete_button = sg.Button(key="Complete", image_source="complete.png", tooltip="Complete a task")
 exit_button = sg.Button("Exit")
 
 window = sg.Window("My Task List App",
