@@ -1,1 +1,5 @@
 Create a text file
+Enter some things to do
+Wash the car
+Do the dishes
+Take a class
