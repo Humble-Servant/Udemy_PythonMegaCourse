@@ -1,4 +1,4 @@
-FILEPATH = "Data\\tasks.txt"
+FILEPATH = "tasks.txt"
 
 
 def get_tasks(filepath=FILEPATH):
